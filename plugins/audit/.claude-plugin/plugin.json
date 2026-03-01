@@ -1,6 +1,6 @@
 {
   "name": "audit",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Find dead and outdated code with an interactive audit.",
   "author": {
     "name": "izzzzzi",
