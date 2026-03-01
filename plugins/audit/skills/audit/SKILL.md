@@ -44,13 +44,26 @@ Task(audit:stores-auditor) - "Audit src/stores/ for dead Zustand slices"
 
 ### Step 2: Interactive Review
 
-**CRITICAL: Ask about ONE item at a time.** Do NOT batch multiple items into one AskUserQuestion call. Do NOT proceed to the next item until the user responds to the current one.
+Loop through findings ONE BY ONE. Each iteration of the loop is:
+1. Show context for the current item (text output)
+2. Call AskUserQuestion ONCE with exactly 1 question about this item
+3. STOP. Wait for the user's response. Do NOT call any other tool in this message.
+4. After the user responds, proceed to the next item
 
-For each suspicious item, first show context, then ask:
+**NEVER call AskUserQuestion more than once per message.** Do not make parallel AskUserQuestion calls. Do not ask about item 2 until the user has answered about item 1.
 
 ```
+# For item N of M:
+
+# First, output context as text:
+"📦 **{feature_name}** ({N}/{M})
+Files: {file_list}
+Usage: {usage_description}
+Last commit: {date}"
+
+# Then make exactly ONE tool call:
 AskUserQuestion(questions=[{
-  question: "📦 {feature_name}\n\nFiles: {file_list}\nUsage: {usage_description}\nLast commit: {date}\n\nWhat should we do with this?",
+  question: "What should we do with {feature_name}?",
   header: "{feature_name}",
   options: [
     {label: "Delete", description: "This is dead code — remove it"},
@@ -60,9 +73,12 @@ AskUserQuestion(questions=[{
   ],
   multiSelect: false
 }])
+
+# STOP HERE. Do not call any other tool. Wait for user response.
+# After user responds → repeat for item N+1.
 ```
 
-**Wait for the user's answer. Then ask about the next item.** One item per turn, no exceptions. If the user answers "Not sure", spawn `audit:usage-analyzer` for that item and return to ask again after analysis.
+If the user answers "Not sure", spawn `audit:usage-analyzer` for that item and return to ask again after analysis.
 
 ### Step 3: Generate Report
 
@@ -150,7 +166,7 @@ Scope argument?
 ## Important Rules
 
 1. **Never delete without confirmation** — the cleanup-executor agent enforces this with git backup
-2. **ONE question per AskUserQuestion call** — never batch multiple items. Never pass more than 1 question to AskUserQuestion. Wait for the user's response before asking the next question. This is the most important rule.
+2. **ONE AskUserQuestion per message** — never call AskUserQuestion more than once in a single response. Never make parallel AskUserQuestion calls. Each response must contain at most one AskUserQuestion call, then STOP and wait. This is the most important rule.
 3. **Provide context** — show findings before asking
 4. **Accept "not sure"** — some things need more investigation, spawn usage-analyzer
 5. **Track decisions** — remember what user said for the report
