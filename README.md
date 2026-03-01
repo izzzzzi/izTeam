@@ -32,10 +32,10 @@ Each plugin adds slash commands, agents, and ready-to-use workflows: from buildi
 
 | Plugin | Version | Description | Command |
 |--------|---------|-------------|---------|
-| 🤖 **[team](#-team)** | `0.3.1` | Build features with an AI agent team and built-in review gates. | `/build` |
-| 🧠 **[think](#-think)** | `1.1.1` | Plan complex tasks before coding with structured expert analysis. | `/think` |
-| 🎭 **[arena](#-arena)** | `1.1.1` | Compare expert viewpoints and converge on a clear decision. | `/arena` |
-| 🧹 **[audit](#-audit)** | `0.1.1` | Find dead and outdated code with an interactive audit. | `/audit` |
+| 🤖 **[team](#-team)** | `0.3.3` | Build features with an AI agent team and built-in review gates. | `/build` |
+| 🧠 **[think](#-think)** | `1.1.3` | Plan complex tasks before coding with structured expert analysis. | `/think` |
+| 🎭 **[arena](#-arena)** | `1.1.3` | Compare expert viewpoints and converge on a clear decision. | `/arena` |
+| 🧹 **[audit](#-audit)** | `0.1.4` | Find dead and outdated code with an interactive audit. | `/audit` |
 
 ---
 

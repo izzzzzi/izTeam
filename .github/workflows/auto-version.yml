@@ -100,6 +100,9 @@ jobs:
               '(.plugins[] | select(.name == $name)).version = $v' \
               "$MARKETPLACE_JSON" > tmp.json && mv tmp.json "$MARKETPLACE_JSON"
 
+            # Update version in README.md and README.ru.md
+            sed -i "s/\(\[${plugin}\](#[^)]*)\*\* | \)\`[0-9]*\.[0-9]*\.[0-9]*\`/\1\`${NEW_VERSION}\`/" README.md README.ru.md
+
             BUMPED="${BUMPED}${plugin} v${NEW_VERSION} (${BUMP})\n"
             TAGS="${TAGS} ${plugin}-v${NEW_VERSION}"
 
@@ -119,7 +122,7 @@ jobs:
       - name: Commit and tag
         if: steps.version.outputs.bumped == 'true'
         run: |
-          git add .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json
+          git add .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json README.md README.ru.md
           git commit -m "$(cat <<'EOF'
           chore: bump plugin versions [auto-version]
 

@@ -38,9 +38,13 @@ jq --arg v "$NEW" '.version = $v' "$PLUGIN_JSON" > tmp.json && mv tmp.json "$PLU
 # Update marketplace.json
 jq --arg n "$PLUGIN" --arg v "$NEW" '(.plugins[] | select(.name == $n)).version = $v' "$MARKETPLACE_JSON" > tmp.json && mv tmp.json "$MARKETPLACE_JSON"
 
+# Update version in README.md and README.ru.md
+sed -i '' "s/\(\[${PLUGIN}\](#[^)]*)\*\* | \)\`[0-9]*\.[0-9]*\.[0-9]*\`/\1\`${NEW}\`/" README.md README.ru.md 2>/dev/null || \
+sed -i "s/\(\[${PLUGIN}\](#[^)]*)\*\* | \)\`[0-9]*\.[0-9]*\.[0-9]*\`/\1\`${NEW}\`/" README.md README.ru.md
+
 echo "✅ $PLUGIN: $CURRENT → $NEW"
 echo ""
 echo "Next steps:"
-echo "  git add $PLUGIN_JSON $MARKETPLACE_JSON"
+echo "  git add $PLUGIN_JSON $MARKETPLACE_JSON README.md README.ru.md"
 echo "  git commit -m \"release: $PLUGIN v$NEW\""
 echo "  git push"
