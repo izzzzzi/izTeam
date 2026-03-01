@@ -64,7 +64,7 @@
 
 ## 🤖 team
 
-Build features with an AI agent team and built-in review gates.
+Реализуйте фичи с командой AI-агентов и встроенными review-gates.
 
 > **Требуется:** `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` в `settings.json`
 
@@ -72,7 +72,7 @@ Build features with an AI agent team and built-in review gates.
 /plugin install team@izteam
 ```
 
-**Примеры:**
+**Команды:**
 
 ```bash
 /build "Add user settings page"
@@ -81,24 +81,42 @@ Build features with an AI agent team and built-in review gates.
 /conventions
 ```
 
+**Естественный язык — тоже работает:**
+
+```
+"Собери страницу настроек с редактированием профиля"
+"Реализуй нотификации с email и push"
+"Поспрашивай меня перед тем как начнём строить"
+"Выдели конвенции проекта и задокументируй стандарты"
+```
+
 [Подробнее (RU) →](./plugins/team/README.ru.md) · [EN →](./plugins/team/README.md)
 
 ---
 
 ## 🧠 think
 
-Plan complex tasks before coding with structured expert analysis.
+Планируйте сложные задачи до кодинга через структурированный экспертный анализ.
 
 ```bash
 /plugin install think@izteam
 ```
 
-**Примеры:**
+**Команды:**
 
 ```bash
 /think Implement a feedback collection system with cashback rewards
 /think Migrate from REST to GraphQL — trade-offs and strategy
 /think Refactor authentication from session-based to JWT
+```
+
+**Естественный язык — тоже работает:**
+
+```
+"Продумай архитектуру платёжной системы"
+"Спланируй миграцию с REST на GraphQL"
+"Проанализируй компромиссы между SSR и CSR"
+"Опиши полный план для микросервиса"
 ```
 
 [Подробнее (RU) →](./plugins/think/README.ru.md) · [EN →](./plugins/think/README.md)
@@ -107,7 +125,7 @@ Plan complex tasks before coding with structured expert analysis.
 
 ## 🎭 arena
 
-Compare expert viewpoints and converge on a clear decision.
+Сравнивайте экспертные точки зрения и приходите к чёткому решению.
 
 > **Требуется:** `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` в `settings.json`
 
@@ -115,12 +133,21 @@ Compare expert viewpoints and converge on a clear decision.
 /plugin install arena@izteam
 ```
 
-**Примеры:**
+**Команды:**
 
 ```bash
 /arena Should we use microservices or monolith for our SaaS?
 /arena Best pricing strategy for a developer tool?
 /arena How should we handle state management in our React app?
+```
+
+**Естественный язык — тоже работает:**
+
+```
+"Дебаты: микросервисы или монолит для нашего кейса"
+"Нужны мнения экспертов по управлению стейтом"
+"Сравни Redux vs Zustand vs Jotai — плюсы и минусы"
+"Какая лучшая стратегия авторизации? Пусть эксперты поспорят"
 ```
 
 [Подробнее (RU) →](./plugins/arena/README.ru.md) · [EN →](./plugins/arena/README.md)
@@ -129,13 +156,13 @@ Compare expert viewpoints and converge on a clear decision.
 
 ## 🧹 audit
 
-Find dead and outdated code with an interactive audit.
+Находите мёртвый и устаревший код через интерактивный аудит.
 
 ```bash
 /plugin install audit@izteam
 ```
 
-**Примеры:**
+**Команды:**
 
 ```bash
 /audit
@@ -143,6 +170,17 @@ Find dead and outdated code with an interactive audit.
 /audit server
 /audit ui
 /audit stores
+```
+
+**Естественный язык — тоже работает:**
+
+```
+"Найди мёртвый код и почисти"
+"Почисти кодовую базу от legacy и осиротевшего кода"
+"Проверь фичи на неиспользуемые экспорты"
+"Проведи аудит сервера на мёртвые API эндпоинты"
+"Найди неиспользуемые UI компоненты"
+"Проверь сторы на избыточный стейт"
 ```
 
 [Подробнее (RU) →](./plugins/audit/README.ru.md) · [EN →](./plugins/audit/README.md)

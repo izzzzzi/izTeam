@@ -72,13 +72,22 @@ Build features with an AI agent team and built-in review gates.
 /plugin install team@izteam
 ```
 
-**Examples:**
+**Commands:**
 
 ```bash
 /build "Add user settings page"
 /build docs/plan.md --coders=2
 /brief "Notifications system"
 /conventions
+```
+
+**Natural language — also works:**
+
+```
+"Build a settings page with profile editing"
+"Implement notifications with email and push"
+"Interview me before we start building"
+"Extract project conventions and document standards"
 ```
 
 [Read more (EN) →](./plugins/team/README.md) · [RU →](./plugins/team/README.ru.md)
@@ -93,12 +102,21 @@ Plan complex tasks before coding with structured expert analysis.
 /plugin install think@izteam
 ```
 
-**Examples:**
+**Commands:**
 
 ```bash
 /think Implement a feedback collection system with cashback rewards
 /think Migrate from REST to GraphQL — trade-offs and strategy
 /think Refactor authentication from session-based to JWT
+```
+
+**Natural language — also works:**
+
+```
+"Think through the architecture for a payments system"
+"Plan how to migrate from REST to GraphQL"
+"Analyze trade-offs between SSR and CSR"
+"Describe a full plan for the microservice"
 ```
 
 [Read more (EN) →](./plugins/think/README.md) · [RU →](./plugins/think/README.ru.md)
@@ -115,12 +133,21 @@ Compare expert viewpoints and converge on a clear decision.
 /plugin install arena@izteam
 ```
 
-**Examples:**
+**Commands:**
 
 ```bash
 /arena Should we use microservices or monolith for our SaaS?
 /arena Best pricing strategy for a developer tool?
 /arena How should we handle state management in our React app?
+```
+
+**Natural language — also works:**
+
+```
+"Debate: microservices vs monolith for our case"
+"I need expert opinions on state management"
+"Compare Redux vs Zustand vs Jotai — pros and cons"
+"What's the best auth strategy? Let experts argue"
 ```
 
 [Read more (EN) →](./plugins/arena/README.md) · [RU →](./plugins/arena/README.ru.md)
@@ -135,7 +162,7 @@ Find dead and outdated code with an interactive audit.
 /plugin install audit@izteam
 ```
 
-**Examples:**
+**Commands:**
 
 ```bash
 /audit
@@ -143,6 +170,17 @@ Find dead and outdated code with an interactive audit.
 /audit server
 /audit ui
 /audit stores
+```
+
+**Natural language — also works:**
+
+```
+"Find dead code and clean up"
+"Clean up the codebase from legacy and orphaned code"
+"Check features for unused exports"
+"Audit the server for dead API endpoints"
+"Find unused UI components"
+"Check stores for redundant state"
 ```
 
 [Read more (EN) →](./plugins/audit/README.md) · [RU →](./plugins/audit/README.ru.md)

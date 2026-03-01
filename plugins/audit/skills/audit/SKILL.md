@@ -44,17 +44,25 @@ Task(audit:stores-auditor) - "Audit src/stores/ for dead Zustand slices"
 
 ### Step 2: Interactive Review
 
-For EACH suspicious item found, use AskUserQuestion:
+**CRITICAL: Ask about ONE item at a time.** Do NOT batch multiple items into one AskUserQuestion call. Do NOT proceed to the next item until the user responds to the current one.
+
+For each suspicious item, first show context, then ask:
 
 ```
-AskUserQuestion with options:
-- "🗑️ Delete — this is dead code"
-- "⚠️ Deprecated — remove soon"
-- "✅ Keep — this is an active feature"
-- "🤔 Not sure — needs investigation"
+AskUserQuestion(questions=[{
+  question: "📦 {feature_name}\n\nFiles: {file_list}\nUsage: {usage_description}\nLast commit: {date}\n\nWhat should we do with this?",
+  header: "{feature_name}",
+  options: [
+    {label: "Delete", description: "This is dead code — remove it"},
+    {label: "Deprecated", description: "Remove soon — mark as deprecated"},
+    {label: "Keep", description: "This is an active feature — keep it"},
+    {label: "Not sure", description: "Needs deeper investigation before deciding"}
+  ],
+  multiSelect: false
+}])
 ```
 
-**Important:** Ask ONE feature at a time. Wait for answer before proceeding.
+**Wait for the user's answer. Then ask about the next item.** One item per turn, no exceptions. If the user answers "Not sure", spawn `audit:usage-analyzer` for that item and return to ask again after analysis.
 
 ### Step 3: Generate Report
 
@@ -142,7 +150,7 @@ Scope argument?
 ## Important Rules
 
 1. **Never delete without confirmation** — the cleanup-executor agent enforces this with git backup
-2. **One question at a time** — don't overwhelm with batch questions
+2. **ONE question per AskUserQuestion call** — never batch multiple items. Never pass more than 1 question to AskUserQuestion. Wait for the user's response before asking the next question. This is the most important rule.
 3. **Provide context** — show findings before asking
-4. **Accept "not sure"** — some things need more investigation
+4. **Accept "not sure"** — some things need more investigation, spawn usage-analyzer
 5. **Track decisions** — remember what user said for the report
