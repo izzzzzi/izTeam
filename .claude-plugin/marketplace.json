@@ -15,7 +15,7 @@
       "name": "audit",
       "source": "./plugins/audit",
       "description": "Find dead and outdated code with an interactive audit.",
-      "version": "0.1.3"
+      "version": "0.1.4"
     },
     {
       "name": "team",
