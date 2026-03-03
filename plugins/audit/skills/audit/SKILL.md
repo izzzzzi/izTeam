@@ -24,6 +24,18 @@ The audit skill finds potentially dead or experimental code and **asks the user*
 
 In vibe-coding, lots of experimental code gets created. Some becomes core features, some gets abandoned. This skill identifies what's what through **conversation**, not assumptions.
 
+## CRITICAL: AskUserQuestion Rules
+
+**ONE AskUserQuestion per message, then STOP.** This is the most important rule in this skill.
+
+- Never call AskUserQuestion more than once in a single response
+- Never make parallel AskUserQuestion calls
+- After calling AskUserQuestion — do NOT call any other tool in that response
+- Do NOT output text after calling AskUserQuestion
+- Wait for the user's response before proceeding
+
+**If you violate this rule, the question gets auto-approved with an empty answer and the user never sees it.**
+
 ## Workflow
 
 ### Step 1: Discovery
@@ -43,45 +55,49 @@ Task(audit:stores-auditor) - "Audit src/stores/ for dead Zustand slices"
 
 ### Step 2: Interactive Review
 
-Loop through findings ONE BY ONE. Each iteration of the loop is:
-1. Show context for the current item (text output)
-2. Call AskUserQuestion ONCE with exactly 1 question about this item
-3. STOP. Wait for the user's response. Do NOT call any other tool in this message.
-4. After the user responds, proceed to the next item
+Loop through findings ONE BY ONE. Each iteration:
 
-**NEVER call AskUserQuestion more than once per message.** Do not make parallel AskUserQuestion calls. Do not ask about item 2 until the user has answered about item 1.
+1. Output context for the current item as text:
 
 ```
-# For item N of M:
+📦 **{feature_name}** ({N}/{M})
 
-# First, output context as text:
-"📦 **{feature_name}** ({N}/{M})
-Files: {file_list}
-Usage: {usage_description}
-Last commit: {date}"
+**Файлы:** {file_list}
+**Использование:** {usage_description}
+**Последний коммит:** {date}
+**Что найдено:** {description}
+```
 
-# Then make exactly ONE tool call:
+2. Call AskUserQuestion ONCE with exactly 1 question:
+
+```
 AskUserQuestion(questions=[{
-  question: "What should we do with {feature_name}?",
-  header: "{feature_name}",
+  question: "Что делаем с {feature_name}?",
+  header: "Решение",
   options: [
-    {label: "Delete", description: "This is dead code — remove it"},
-    {label: "Deprecated", description: "Remove soon — mark as deprecated"},
-    {label: "Keep", description: "This is an active feature — keep it"},
-    {label: "Not sure", description: "Needs deeper investigation before deciding"}
+    {label: "Удалить", description: "Мёртвый код — удалить"},
+    {label: "Deprecated", description: "Скоро удалим — пометить deprecated"},
+    {label: "Оставить", description: "Активная фича — оставить"},
+    {label: "Не уверен", description: "Нужен глубокий анализ"}
   ],
   multiSelect: false
 }])
 
-# STOP HERE. Do not call any other tool. Wait for user response.
-# After user responds → repeat for item N+1.
+# STOP HERE. Do not call any other tool. Do not output text.
+# Wait for user response. Then proceed to item N+1.
 ```
 
-If the user answers "Not sure", spawn `audit:usage-analyzer` for that item and return to ask again after analysis.
+3. **STOP.** Do not call any other tool. Do not output text after AskUserQuestion. Wait for the user's response.
+
+4. After the user responds — record the decision, then show the next item.
+
+**NEVER ask about item 2 until the user has answered about item 1.**
+
+If the user answers "Не уверен", spawn `audit:usage-analyzer` for that item, show the analysis results, and ask the same question again via AskUserQuestion.
 
 ### Step 3: Generate Report
 
-After all questions answered, create action plan:
+After ALL items are reviewed, output the report:
 
 ```markdown
 # 🧹 Vibe Audit Report
@@ -89,13 +105,13 @@ After all questions answered, create action plan:
 ## Decisions
 
 ### 🗑️ To Delete
-- [feature] — reason: [user's answer]
+- [feature] — reason
 
 ### ⚠️ Deprecated
 - [feature] — remove by: [date]
 
 ### ✅ Keep
-- [feature] — document: [what it does]
+- [feature] — what it does
 
 ## Next Steps
 1. [ ] Delete [X] files
@@ -105,41 +121,25 @@ After all questions answered, create action plan:
 
 ### Step 4: Final Confirmation
 
-After the report is generated, you MUST ask the user to confirm before ANY cleanup:
+After the report, you MUST get final confirmation before ANY cleanup. Call AskUserQuestion:
 
 ```
 AskUserQuestion(questions=[{
-  question: "Ready to execute cleanup? This will delete {N} items listed above.",
-  header: "Confirm",
+  question: "Готовы к очистке? Будет удалено {N} элементов из списка выше.",
+  header: "Подтверждение",
   options: [
-    {label: "Execute", description: "Create git backup branch and delete confirmed items"},
-    {label: "Cancel", description: "Do nothing — keep the report for later"}
+    {label: "Выполнить", description: "Создать git backup branch и удалить подтверждённые элементы"},
+    {label: "Отмена", description: "Ничего не делать — оставить отчёт"}
   ],
   multiSelect: false
 }])
 
 # STOP HERE. Wait for user response.
-# Only if user selects "Execute" → spawn cleanup-executor for EACH confirmed item.
-# If user selects "Cancel" → end the session, keep the report.
+# "Выполнить" → spawn cleanup-executor for EACH confirmed item.
+# "Отмена" → end the session, keep the report.
 ```
 
-**NEVER skip this step.** Even if the user already answered "Delete" on individual items in Step 2, you MUST ask for final confirmation before executing anything.
-
-## Question Templates
-
-When asking about a feature, provide context:
-
-```
-📦 **{feature_name}**
-
-What was found:
-- Files: {file_count} ({file_list})
-- Usage: {usage_description}
-- Last commit: {last_commit_date}
-- Dependencies: {dependencies}
-
-Is this needed?
-```
+**NEVER skip this step.** Even if the user already answered "Удалить" on individual items, you MUST show the report and get final confirmation.
 
 ## Scope Options
 
@@ -182,9 +182,9 @@ flowchart TD
 ## Important Rules
 
 1. **This skill is READ-ONLY.** You MUST NOT delete, edit, or modify any files. You scan, ask, and report. All deletions happen ONLY through cleanup-executor, ONLY after Step 4 final confirmation.
-2. **Never delete without confirmation** — even after user answers "Delete" on individual items, you MUST show the full report and get final confirmation (Step 4) before launching cleanup-executor.
-3. **ONE AskUserQuestion per message** — never call AskUserQuestion more than once in a single response. Never make parallel AskUserQuestion calls. Each response must contain at most one AskUserQuestion call, then STOP and wait. This is the most important rule.
-4. **Provide context** — show findings before asking
-5. **Accept "not sure"** — some things need more investigation, spawn usage-analyzer
+2. **Never delete without confirmation** — even after user answers "Удалить" on individual items, you MUST show the full report and get final confirmation (Step 4) before launching cleanup-executor.
+3. **ONE AskUserQuestion per message** — never call AskUserQuestion more than once in a single response. Never make parallel AskUserQuestion calls. After calling AskUserQuestion — do NOT call any other tool or output text. STOP and wait. **This is the most important rule.**
+4. **One item per turn** — show one finding, ask one question via AskUserQuestion, STOP. Do not proceed to the next item until the user responds.
+5. **Accept "Не уверен"** — some things need more investigation, spawn usage-analyzer
 6. **Track decisions** — remember what user said for the report
-7. **Do not use Bash** — you have no Bash access. Use only Read, Grep, Glob for analysis and AskUserQuestion for interaction.
+7. **Do not use Bash** — you have no Bash access. Use only Read, Grep, Glob for analysis.
