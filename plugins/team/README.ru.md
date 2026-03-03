@@ -4,7 +4,7 @@
 
 Реализуйте фичи с командой AI-агентов и встроенными review-gates.
 
-## Prerequisites
+## Требования
 
 > **Agent Teams экспериментальны и по умолчанию выключены.** Перед использованием плагина их нужно включить.
 
@@ -27,30 +27,30 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
 После включения перезапустите Claude Code.
 
-## Installation
+## Установка
 
 ```bash
 /plugin marketplace add izzzzzi/izTeam
 /plugin install team@izteam
 ```
 
-## Usage
+## Использование
 
 ```
-/build <description or path/to/plan.md> [--coders=N]
-/brief <description> — interview first, then build
-/conventions [path/to/project]
+/build <описание или путь/к/плану.md> [--coders=N]
+/brief <описание> — сначала интервью, потом сборка
+/conventions [путь/к/проекту]
 ```
 
-**Examples:**
+**Примеры:**
 ```
-/build "Add user settings page with profile editing"
+/build "Добавить страницу настроек пользователя с редактированием профиля"
 /build docs/plan.md --coders=2
-/brief "Add notifications"
+/brief "Добавить уведомления"
 /conventions
 ```
 
-## How It Works
+## Как это работает
 
 ### /build
 
@@ -107,7 +107,7 @@ flowchart TD
 
 `/build` использует эти conventions как reference examples. Также можно запускать `/conventions` отдельно.
 
-## Complexity Levels
+## Уровни сложности
 
 | Уровень | Размер команды | Reviewers | Анализ рисков | Валидация Tech Lead |
 |---------|---------------|-----------|---------------|---------------------|
@@ -115,7 +115,7 @@ flowchart TD
 | **MEDIUM** | 5-7 агентов | 3 специализированных | Да | Да |
 | **COMPLEX** | 6-9+ агентов | 3 специализированных + глубокий анализ | Полный + risk testers | Да + пользователь в курсе ключевых решений |
 
-## Team Roles
+## Роли в команде
 
 | Роль | Время жизни | Назначение |
 |------|-------------|------------|
@@ -131,7 +131,7 @@ flowchart TD
 | **Unified Reviewer** | Постоянный | Универсальный reviewer для SIMPLE |
 | **Risk Tester** | Разовый | Проверяет явные риски целевыми проверками |
 
-## Structure
+## Структура
 
 ```
 team/
@@ -174,6 +174,6 @@ team/
 └── README.ru.md
 ```
 
-## License
+## Лицензия
 
 MIT
