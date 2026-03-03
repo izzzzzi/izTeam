@@ -53,6 +53,14 @@ Task(audit:ui-auditor) - "Audit src/design-system/ for orphan components"
 Task(audit:stores-auditor) - "Audit src/stores/ for dead Zustand slices"
 ```
 
+If the scanner returns an empty list or `"verdict": "clean"` — report to the user:
+
+```
+✅ Кодовая база чистая — неиспользуемый код не обнаружен.
+```
+
+**END.** Do not proceed to Step 2. Do not ask questions. A clean result is valid.
+
 ### Step 2: Interactive Review
 
 Loop through findings ONE BY ONE. Each iteration:

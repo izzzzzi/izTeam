@@ -122,6 +122,24 @@ Audit scripts are available in `plugins/audit/skills/audit/scripts/`:
 5. **Score suspicion** — combine signals into level
 6. **Return structured data** — for interactive review
 
+## Quality Threshold
+
+**Do NOT inflate results.** Only report items with concrete evidence of dead code.
+
+Each item MUST have at least one of these hard signals:
+- Zero imports/calls from outside its own directory
+- No git commits in 60+ days AND low connectivity
+- Explicitly broken functionality (references missing targets)
+- Code commented out or wrapped in `if (false)` / feature flags that are always off
+
+Do NOT report:
+- Code that works and is used, even if "could be better"
+- Low-usage utilities that serve a clear purpose
+- Fields/endpoints that exist for API completeness
+- Anything that requires speculation — if you're not sure, don't include it
+
+**If no items meet the threshold → return `{"suspicious_items": [], "verdict": "clean"}`.** An empty result is a valid and expected outcome. Do not pad the list to look productive.
+
 ## Important
 
 - Be thorough but not paranoid
