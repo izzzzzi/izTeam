@@ -7,6 +7,13 @@ description: >-
   interviewed first, or says 'ask me questions'. Don't use when the user
   already has a detailed spec, wants to jump straight into coding, or invokes
   /build directly.
+allowed-tools:
+  - Task
+  - Read
+  - Grep
+  - Glob
+  - AskUserQuestion
+  - Skill
 model: opus
 ---
 
@@ -23,10 +30,11 @@ Conducts a short adaptive interview to understand the user's intent, then compil
 
 ## Protocol
 
-- One question at a time via `AskUserQuestion` with buttons
+- **ONE AskUserQuestion per message, then STOP.** Never call AskUserQuestion more than once in a single response. Never make parallel AskUserQuestion calls. After calling AskUserQuestion — do NOT call any other tool. Wait for the user's response.
 - Skip questions already answered in initial message
 - 2-6 questions, under 5 minutes
-- **HARD GATE:** No implementation until brief is compiled and approved.
+- **HARD GATE:** No implementation until brief is compiled and user confirms via AskUserQuestion.
+- **NEVER invoke /build without explicit user approval** in Phase 3 confirmation.
 
 ---
 
@@ -65,6 +73,9 @@ AskUserQuestion(
     "multiSelect": false
   }]
 )
+
+# STOP HERE. Do not call any other tool. Wait for user response.
+# After user responds → proceed to next question or Phase 2.
 ```
 
 If answer is vague (< 15 words): propose 2-3 hypothesis buttons (Branch B: "Which of these is closest?").
@@ -115,13 +126,34 @@ Frame as button choices (2-4 options), not open questions. Examples of good foll
 
 ## Phase 3: Brief Compilation, Approval & Handoff
 
-See `references/brief-template.md` for the full compilation template, confirmation flow, and handoff procedure.
+See `references/brief-template.md` for the full compilation template.
 
 1. Compile brief from interview answers + researcher findings
-2. Show brief to user, confirm with AskUserQuestion
-3. If adjustments needed → update, show again
-4. Save to `.briefs/[feature-name-kebab-case].md`
+2. Show the brief as text output
+3. **MANDATORY confirmation** — call AskUserQuestion:
+
+```
+AskUserQuestion(
+  questions=[{
+    "question": "Here's the plan I'll send to the build team. All correct?",
+    "header": "Launch?",
+    "options": [
+      {"label": "Looks good, launch!", "description": "Save the plan and start building"},
+      {"label": "I want to adjust", "description": "Let me change something first"}
+    ],
+    "multiSelect": false
+  }]
+)
+
+# STOP HERE. Wait for user response.
+# "Looks good" → save and hand off to /build
+# "I want to adjust" → ask what to change, update brief, show again, re-confirm
+```
+
+4. **ONLY after user confirms** → save to `.briefs/[feature-name-kebab-case].md`
 5. Hand off: `Skill("build", args=".briefs/[feature-name].md --no-research")`
+
+**NEVER skip this confirmation.** Even if the user seems eager, always show the compiled brief and wait for approval before invoking /build.
 
 ---
 
