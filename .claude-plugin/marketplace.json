@@ -1,6 +1,6 @@
 {
   "name": "izteam",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "owner": {
     "name": "izzzzzi",
     "url": "https://github.com/izzzzzi"
@@ -16,7 +16,7 @@
       "name": "audit",
       "source": "./plugins/audit",
       "description": "Find dead and outdated code with an interactive audit.",
-      "version": "0.1.13"
+      "version": "0.1.14"
     },
     {
       "name": "team",
