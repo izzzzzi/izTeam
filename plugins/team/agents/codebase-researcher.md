@@ -6,19 +6,13 @@ description: |
   <example>
   Context: Lead needs to understand the project before planning a feature
   lead: "Explore this project for planning a 'user notifications' feature."
-  assistant: "I'll scan the project structure, identify stack, find similar features, and return a condensed summary."
-  <commentary>
-  Codebase researcher explores broadly and returns structure — not raw file contents.
-  </commentary>
+  assistant: "I'll scan structure, stack, similar features, and return a condensed summary."
   </example>
 
   <example type="negative">
-  Context: Lead wants full file contents of reference implementations
+  Context: Lead wants full file contents
   lead: "Find the best example files and return their full code"
   assistant: "That's reference-researcher's job. I return summaries, not full file contents."
-  <commentary>
-  Codebase researcher returns CONDENSED summaries. Reference researcher returns FULL file contents.
-  </commentary>
   </example>
 
 model: haiku

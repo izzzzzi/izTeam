@@ -24,28 +24,19 @@
 
 ## How It Works
 
-### Stage 1: Breakdown + Expert Perspective
-- Уточняет задачу и целевой результат
-- Выбирает главного эксперта с обоснованием
-- Берёт guiding principles от 3 экспертов
-- Формирует таблицу аспектов для анализа (с назначенными экспертами)
+```mermaid
+flowchart TD
+    S1["Stage 1: Breakdown<br/>Уточнение задачи, выбор главного эксперта,<br/>principles от 3 экспертов"]
+    S1 --> AT["Таблица аспектов<br/>5-15 аспектов с назначенными экспертами"]
+    AT --> S2["Stage 2: Parallel Expert Analysis<br/>Один агент на аспект, запуск параллельно"]
+    S2 --> A1["Изучение проекта<br/>структура, паттерны, код"]
+    S2 --> A2["Экспертное мышление<br/>main expert + principles"]
+    S2 --> A3["2-4 варианта<br/>с плюсами и минусами"]
+    A1 & A2 & A3 --> S3["Stage 3: Summary Document"]
+    S3 --> DOC["docs/plans/YYYY-MM-DD-topic-design.md"]
+```
 
-### Stage 2: Parallel Expert Analysis
-Запускает агентов параллельно — по одному на аспект. Каждый агент:
-- Изучает проект (структура, паттерны, существующий код)
-- Применяет экспертное мышление (main expert + principles)
-- Предлагает 2-4 варианта с плюсами и минусами
-- Даёт рекомендацию по своему аспекту
-
-### Stage 3: Summary Document
-Собирает результаты в один структурированный markdown-документ:
-- Table of contents
-- Overview с ключевыми решениями
-- Детали по каждому аспекту с comparison tables
-- Implementation plan по фазам
-- Success metrics
-
-Сохраняет в `docs/plans/YYYY-MM-DD-[topic]-design.md`
+Итоговый документ включает: table of contents, overview с ключевыми решениями, детали по каждому аспекту с comparison tables, поэтапный implementation plan и success metrics.
 
 ## Structure
 

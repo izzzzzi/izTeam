@@ -20,15 +20,6 @@ description: |
   </commentary>
   </example>
 
-  <example type="negative">
-  Context: Coder sends review request for a complex auth refactoring
-  coder-2: "REVIEW: task #8. Files changed: src/middleware/auth.ts, src/server/routers/auth.ts"
-  assistant: "This is beyond SIMPLE scope. I can do a surface check, but this needs the full security-reviewer + logic-reviewer + quality-reviewer pipeline."
-  <commentary>
-  Escalation to MEDIUM is NOT failure — it's the correct response for complex code. Unified reviewer knows its limits.
-  </commentary>
-  </example>
-
 model: sonnet
 color: purple
 tools:

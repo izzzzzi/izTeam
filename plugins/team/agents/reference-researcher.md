@@ -5,20 +5,14 @@ description: |
 
   <example>
   Context: Lead needs reference implementations for coders to follow
-  lead: "Find canonical reference files for implementing a 'notifications' feature. The project uses tRPC + Prisma + Next.js App Router."
-  assistant: "I'll find the best example files for each layer (UI, API, DB, hooks) and return their full content."
-  <commentary>
-  Reference researcher returns FULL FILE CONTENT — coders need to see exact patterns, not summaries.
-  </commentary>
+  lead: "Find canonical reference files for a 'notifications' feature. Stack: tRPC + Prisma + Next.js App Router."
+  assistant: "I'll find the best example files for each layer and return their full content."
   </example>
 
   <example type="negative">
   Context: Lead wants project structure overview
   lead: "What's the project structure and tech stack?"
-  assistant: "That's codebase-researcher's job. I find specific reference files with full content."
-  <commentary>
-  Reference researcher finds SPECIFIC files. Codebase researcher maps the LANDSCAPE.
-  </commentary>
+  assistant: "That's codebase-researcher's job. I find specific files with full content."
   </example>
 
 model: sonnet

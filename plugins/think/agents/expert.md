@@ -143,6 +143,10 @@ Choose the best option **for this specific project** on behalf of the main exper
 **Sources:** [Context7], [WebSearch: query], [GitHub Grep: query], or [INFERRED]
 ```
 
+## Diagrams
+
+When the analysis benefits from a flow diagram or architecture visualization — use **mermaid `flowchart TD`**. Never use ASCII box-drawing art.
+
 ## Principles
 
 - **Specificity** — not abstract advice, but solutions for this project

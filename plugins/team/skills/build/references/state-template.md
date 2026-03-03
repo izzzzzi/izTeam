@@ -24,11 +24,8 @@ If context is compacted, read this file first.
 - quality-reviewer: {ACTIVE | NOT_SPAWNED}
 - unified-reviewer: {ACTIVE | NOT_SPAWNED}
 
-## Approval Matrix (runtime source of truth)
-- SIMPLE: unified-reviewer
-- SIMPLE_ESCALATED_TO_MEDIUM: security-reviewer + logic-reviewer + quality-reviewer + tech-lead
-- MEDIUM: active reviewer set for task + tech-lead
-- COMPLEX: security-reviewer + logic-reviewer + quality-reviewer + tech-lead
+## Approval Matrix
+See complexity-classification.md for the full roster-scoped approval matrix.
 
 ## Tasks
 - #{id}: {subject} — {STATUS} ({assignment})

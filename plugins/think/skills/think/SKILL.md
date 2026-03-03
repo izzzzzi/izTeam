@@ -66,12 +66,13 @@ Then launch **in parallel** `think:expert` agents — one per aspect:
 
 **Dispatch decision tree:**
 
-```
-Aspects identified?
-├── 0 aspects → report to user: task is too simple for multi-aspect analysis
-├── 1-2 aspects → launch experts, but warn: "Few aspects — consider if /think is needed"
-├── 3-15 aspects → launch all in parallel (standard path)
-└── >15 aspects → group related aspects (max 15 agents), note groupings to user
+```mermaid
+flowchart TD
+    A{"Aspects identified?"}
+    A -->|0| SIMPLE["Report: task is too simple<br/>for multi-aspect analysis"]
+    A -->|1-2| FEW["Launch experts + warn:<br/>Few aspects — consider if /think is needed"]
+    A -->|3-15| STD["Launch all in parallel<br/>(standard path)"]
+    A -->|>15| GROUP["Group related aspects<br/>(max 15 agents), note groupings"]
 ```
 
 **Partial returns:** If fewer than half the experts return, compile available results with a warning. If none return, report failure.
@@ -176,6 +177,10 @@ N. [Implementation Plan](#implementation-plan)
 |--------|----------|--------|
 | ... | — | ... |
 ```
+
+### Diagrams
+
+When the document needs flow diagrams, architecture overviews, or process visualizations — use **mermaid `flowchart TD`** code blocks (` ```mermaid `). Never use ASCII box-drawing art for diagrams in `.md` files.
 
 **Save the document** to `docs/plans/YYYY-MM-DD-[topic]-design.md`
 

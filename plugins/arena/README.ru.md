@@ -51,44 +51,22 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
 ## How It Works
 
-### Phase 0: Expert Selection
-- Анализирует ваш вопрос (домен, тип, ставка решения)
-- Выбирает 3-5 реальных экспертов с публичными позициями
-- Обеспечивает конфликтующие точки зрения
-- Добавляет Devil's Advocate с veto power
-- Показывает панель экспертов для ревью
+```mermaid
+flowchart TD
+    P0["Phase 0: Expert Selection<br/>3-5 реальных экспертов + Devil's Advocate"]
+    P1["Phase 1: Reconnaissance<br/>2-4 researcher параллельно"]
+    P2["Phase 2: Arena Launch<br/>Briefing packet + Agent Team"]
+    P3["Phase 3: Organic Debates<br/>Эксперты спорят peer-to-peer"]
+    P4{"Phase 4: Convergence<br/>Консенсус стабилизировался?"}
+    P5["Phase 5: Synthesis<br/>Verdict + action plan"]
+    DOC["docs/arena/YYYY-MM-DD-topic.md"]
 
-### Phase 1: Reconnaissance
-- Запускает 2-4 researcher agents параллельно
-- Собирает архитектурные ограничения, данные и кейсы
-- Исследователи возвращают выводы и завершаются
+    P0 --> P1 --> P2 --> P3 --> P4
+    P4 -->|Нет| P3
+    P4 -->|Да| P5 --> DOC
+```
 
-### Phase 2: Arena Launch
-- Собирает findings в briefing packet
-- Создаёт Agent Team
-- Запускает всех экспертов с общим контекстом
-
-### Phase 3: Organic Debates
-Эксперты спорят напрямую друг с другом:
-
-1. Каждый эксперт даёт позицию и self-critique
-2. Эксперты оспаривают аргументы друг друга
-3. Контраргументы и смена позиции происходят естественно
-4. Devil's Advocate может поднять veto при критических изъянах
-5. Модератор даёт live commentary по ключевым моментам
-
-### Phase 4: Convergence
-Дебаты завершаются, когда консенсус стабилизируется, эксперты замолкают или срабатывает timeout.
-
-### Phase 5: Synthesis
-Формирует итоговый документ с:
-- Verdict и рекомендацией
-- Хроникой дебатов
-- Аргументами за и против
-- Оставшимися разногласиями
-- Action plan
-
-Сохраняет в `docs/arena/YYYY-MM-DD-[topic].md`
+Во время дебатов: эксперты дают позицию с self-critique, оспаривают аргументы друг друга, меняют позицию при убедительных доводах. Devil's Advocate может наложить veto на критические изъяны. Модератор даёт live commentary по ключевым моментам.
 
 ## Structure
 

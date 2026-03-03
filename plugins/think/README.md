@@ -24,28 +24,19 @@ Plan complex tasks before coding with structured expert analysis.
 
 ## How It Works
 
-### Stage 1: Breakdown + Expert Perspective
-- Clarifies the task and desired outcome
-- Selects the main expert with reasoning
-- Pulls guiding principles from 3 experts
-- Creates a table of aspects to analyze (with assigned experts)
+```mermaid
+flowchart TD
+    S1["Stage 1: Breakdown<br/>Clarify task, select main expert,<br/>pull principles from 3 experts"]
+    S1 --> AT["Aspects table<br/>5-15 aspects with assigned experts"]
+    AT --> S2["Stage 2: Parallel Expert Analysis<br/>One agent per aspect launched in parallel"]
+    S2 --> A1["Study project<br/>structure, patterns, code"]
+    S2 --> A2["Apply expert thinking<br/>main expert + principles"]
+    S2 --> A3["Propose 2-4 options<br/>with pros & cons"]
+    A1 & A2 & A3 --> S3["Stage 3: Summary Document"]
+    S3 --> DOC["docs/plans/YYYY-MM-DD-topic-design.md"]
+```
 
-### Stage 2: Parallel Expert Analysis
-Launches agents in parallel — one per aspect. Each agent:
-- Studies your project (structure, patterns, existing code)
-- Applies expert thinking (main expert + principles)
-- Proposes 2-4 options with pros and cons
-- Gives a recommendation for that aspect
-
-### Stage 3: Summary Document
-Combines results into one structured markdown document:
-- Table of contents
-- Overview with key decisions
-- Details for each aspect with comparison tables
-- Implementation plan by phases
-- Success metrics
-
-Saves to `docs/plans/YYYY-MM-DD-[topic]-design.md`
+The summary document includes: table of contents, overview with key decisions, details for each aspect with comparison tables, phased implementation plan, and success metrics.
 
 ## Structure
 

@@ -39,24 +39,21 @@ Static analysis often misses this, because code can still be referenced while no
 
 ## Workflow
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  1. DISCOVERY                                               │
-│     feature-scanner finds suspicious areas                  │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│  2. INTERVIEW                                               │
-│     "Is this still used?"                                   │
-│                                                             │
-│     Delete    Deprecated    Keep    Not sure                │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│  3. CLEANUP                                                 │
-│     cleanup-executor safely removes                         │
-│     (git branch + commit + TypeScript check)                │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    D["1. Discovery<br/>feature-scanner finds suspicious areas"]
+    I{"2. Interview<br/>&quot;Is this still used?&quot;"}
+    DEL["Delete"]
+    DEP["Deprecated"]
+    KEEP["Keep"]
+    NS["Not sure<br/>usage-analyzer"]
+    C["3. Cleanup<br/>git branch + commit + TypeScript check"]
+
+    D --> I
+    I --> DEL --> C
+    I --> DEP
+    I --> KEEP
+    I --> NS -->|deep analysis| I
 ```
 
 ## Agents

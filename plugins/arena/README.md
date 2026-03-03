@@ -51,44 +51,22 @@ Works for any domain: engineering, product, strategy, business, science, philoso
 
 ## How It Works
 
-### Phase 0: Expert Selection
-- Analyzes your question (domain, type, stakes)
-- Selects 3-5 real experts with published positions
-- Ensures opposing viewpoints
-- Includes a Devil's Advocate with veto power
-- Shows the panel for your review
+```mermaid
+flowchart TD
+    P0["Phase 0: Expert Selection<br/>3-5 real experts + Devil's Advocate"]
+    P1["Phase 1: Reconnaissance<br/>2-4 researchers in parallel"]
+    P2["Phase 2: Arena Launch<br/>Briefing packet + Agent Team"]
+    P3["Phase 3: Organic Debates<br/>Experts argue peer-to-peer"]
+    P4{"Phase 4: Convergence<br/>Consensus stabilized?"}
+    P5["Phase 5: Synthesis<br/>Verdict + action plan"]
+    DOC["docs/arena/YYYY-MM-DD-topic.md"]
 
-### Phase 1: Reconnaissance
-- Launches 2-4 researcher agents in parallel
-- Collects architecture constraints, data points, and case studies
-- Researchers return findings and exit
+    P0 --> P1 --> P2 --> P3 --> P4
+    P4 -->|No| P3
+    P4 -->|Yes| P5 --> DOC
+```
 
-### Phase 2: Arena Launch
-- Compiles findings into a briefing packet
-- Creates an Agent Team
-- Launches all experts with shared context
-
-### Phase 3: Organic Debates
-Experts debate directly with each other:
-
-1. Each expert shares a position and self-critique
-2. Experts challenge each other's arguments
-3. Counter-arguments and position changes happen naturally
-4. Devil's Advocate can raise a veto on critical flaws
-5. Moderator provides live commentary on key turns
-
-### Phase 4: Convergence
-Debate ends when consensus stabilizes, experts go quiet, or timeout is reached.
-
-### Phase 5: Synthesis
-Creates a final document with:
-- Verdict and recommendation
-- Debate chronicle
-- Arguments for and against
-- Remaining disagreements
-- Action plan
-
-Saves to `docs/arena/YYYY-MM-DD-[topic].md`
+During debates: experts share positions with self-critique, challenge each other's arguments, change positions when convinced. Devil's Advocate can raise a veto on critical flaws. Moderator provides live commentary on key turns.
 
 ## Structure
 

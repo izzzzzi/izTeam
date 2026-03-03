@@ -132,25 +132,20 @@ Is this needed?
 
 ### Agent Selection
 
-```
-Scope argument?
-├── (empty) or "all"
-│   └── Task(audit:feature-scanner) — full codebase scan
-├── "features"
-│   └── Task(audit:features-auditor) — src/features/ analysis
-├── "server"
-│   └── Task(audit:server-auditor) — src/server/ analysis
-├── "ui"
-│   └── Task(audit:ui-auditor) — src/design-system/ analysis
-├── "stores"
-│   └── Task(audit:stores-auditor) — src/stores/ analysis
-└── "all" (explicit)
-    └── Run ALL auditors in parallel:
-        ├── Task(audit:feature-scanner)
-        ├── Task(audit:features-auditor)
-        ├── Task(audit:server-auditor)
-        ├── Task(audit:ui-auditor)
-        └── Task(audit:stores-auditor)
+```mermaid
+flowchart TD
+    S{"Scope argument?"}
+    S -->|empty / all| FS["feature-scanner<br/>full codebase scan"]
+    S -->|features| FA["features-auditor<br/>src/features/ analysis"]
+    S -->|server| SA["server-auditor<br/>src/server/ analysis"]
+    S -->|ui| UA["ui-auditor<br/>src/design-system/ analysis"]
+    S -->|stores| STA["stores-auditor<br/>src/stores/ analysis"]
+    S -->|all explicit| ALL["Run ALL in parallel"]
+    ALL --> FS2["feature-scanner"]
+    ALL --> FA2["features-auditor"]
+    ALL --> SA2["server-auditor"]
+    ALL --> UA2["ui-auditor"]
+    ALL --> STA2["stores-auditor"]
 ```
 
 ## Error Handling

@@ -21,15 +21,6 @@ description: |
   </commentary>
   </example>
 
-  <example>
-  Context: Coder escalates because gold standard pattern doesn't fit
-  coder-1: "ESCALATION: task #3. useQuery pattern doesn't fit for real-time data. Proposed alternative: useSubscription. Need decision."
-  assistant: "I'll review both patterns, decide if the deviation is justified, and document in DECISIONS.md."
-  <commentary>
-  Tech Lead is the authority on pattern deviations — accepts or rejects, documents decision.
-  </commentary>
-  </example>
-
   <example type="negative">
   Context: Code has a null pointer bug but architecture is correct
   coder-1: "REVIEW: task #2. Files: src/utils/helpers.ts"
@@ -200,4 +191,5 @@ Coders send review requests directly via SendMessage: `"REVIEW: task #N. Files c
 - When you reject, explain WHY and WHAT to change, with file:line references — send to coder
 - Every significant decision goes into DECISIONS.md
 - When handling escalations, always explain your reasoning — coders learn from your decisions
+- When adding architecture diagrams to DECISIONS.md or review feedback — use mermaid `flowchart TD`, never ASCII box-drawing art
 </output_rules>

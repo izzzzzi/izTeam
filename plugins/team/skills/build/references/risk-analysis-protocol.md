@@ -4,21 +4,20 @@
 
 ## Decision tree
 
-```
-Complexity?
-├── SIMPLE → skip entirely → Step 5
-└── MEDIUM / COMPLEX
-    ├── 1. Tech Lead identifies risks
-    ├── 2. Classify risks
-    │   └── For each risk:
-    │       ├── CRITICAL → spawn risk-tester
-    │       ├── MAJOR (up to 3) → spawn risk-tester
-    │       └── MINOR → skip
-    ├── 3. Forward findings to Tech Lead
-    └── 4. Apply recommendations
-        ├── New tasks needed? → TaskCreate
-        ├── Reordering needed? → TaskUpdate dependencies
-        └── User decision needed? → notify user (rare exception)
+```mermaid
+flowchart TD
+    CX{"Complexity?"}
+    CX -->|SIMPLE| SKIP["Skip entirely → Step 5"]
+    CX -->|MEDIUM / COMPLEX| ID["1. Tech Lead identifies risks"]
+    ID --> CL{"2. Classify each risk"}
+    CL -->|CRITICAL| RT1["Spawn risk-tester"]
+    CL -->|MAJOR up to 3| RT2["Spawn risk-tester"]
+    CL -->|MINOR| SK["Skip"]
+    RT1 & RT2 --> FWD["3. Forward findings to Tech Lead"]
+    FWD --> APPLY["4. Apply recommendations"]
+    APPLY --> NEW["New tasks? → TaskCreate"]
+    APPLY --> REORD["Reordering? → TaskUpdate"]
+    APPLY --> USER["User decision? → notify (rare)"]
 ```
 
 ## 1. Tech Lead identifies risks
@@ -94,13 +93,4 @@ Reply with summary of changes made."
 - If Tech Lead suggests reordering → adjust dependencies (TaskUpdate)
 - If a risk requires user decision (e.g., "accept data loss during migration or add backward compatibility?") → notify user
 
-## What risk analysis catches that review doesn't
-
-| Risk Analysis (BEFORE code) | Review (AFTER code) |
-|------------------------------|---------------------|
-| "This endpoint will break the mobile app" | "This endpoint has a typo in the response" |
-| "The migration will delete user data" | "The migration has a syntax error" |
-| "Auth middleware won't cover the new routes" | "Auth check is missing on line 42" |
-| "Two tasks will create conflicting DB columns" | "This column name doesn't match convention" |
-
-**Real-world example:** See `@references/risk-testing-example.md` for a detailed case study of how risk analysis caught a silent data loss bug (wrong cursor field) that post-implementation review would have missed.
+**Real-world example:** See `@references/risk-testing-example.md` for the detailed case study (includes comparison table of risk analysis vs review).

@@ -210,24 +210,22 @@ See `references/live-commentary-rules.md` for the full commentary protocol (sour
 
 ### Convergence decision tree:
 
-```
-Check convergence state:
-├── 3+ of N experts submitted final positions?
-│   ├── YES → proceed to Synthesis
-│   └── NO
-│       ├── All experts idle (no new arguments)?
-│       │   ├── YES → broadcast: "Submit final positions to team-lead"
-│       │   │         Wait 5 min → proceed with available positions
-│       │   └── NO → continue monitoring
-│       └── Timeout >20 minutes of active debate?
-│           ├── YES → broadcast timeout → request final positions → proceed
-│           └── NO → continue monitoring
-│
-├── VETO active?
-│   ├── YES → broadcast VETO to all → wait for responses
-│   │   ├── VETO withdrawn → proceed normally
-│   │   └── VETO stands → record disagreement in synthesis
-│   └── NO → proceed normally
+```mermaid
+flowchart TD
+    FP{"3+ of N experts<br/>submitted final positions?"}
+    FP -->|YES| VETO{"VETO active?"}
+    FP -->|NO| IDLE{"All experts idle?"}
+    IDLE -->|YES| BCAST["Broadcast: Submit final positions"]
+    BCAST --> WAIT5["Wait 5 min"] --> SYNTH
+    IDLE -->|NO| TIMEOUT{">20 min of active debate?"}
+    TIMEOUT -->|YES| TO_BCAST["Broadcast timeout<br/>Request final positions"] --> SYNTH
+    TIMEOUT -->|NO| MON["Continue monitoring"]
+
+    VETO -->|NO| SYNTH["Proceed to Synthesis"]
+    VETO -->|YES| V_BCAST["Broadcast VETO to all<br/>Wait for responses"]
+    V_BCAST --> V_CHECK{"VETO withdrawn?"}
+    V_CHECK -->|YES| SYNTH
+    V_CHECK -->|NO| DISAGREE["Record disagreement<br/>in synthesis"] --> SYNTH
 ```
 
 ---

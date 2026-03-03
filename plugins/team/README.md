@@ -56,70 +56,45 @@ Restart Claude Code after enabling.
 
 A Team Lead orchestrates the full implementation flow. The pipeline scales with task complexity, so simple work stays fast and complex work gets more review.
 
-#### Phase 1: Discovery & Planning
+```mermaid
+flowchart TD
+    subgraph Phase1["Phase 1: Discovery & Planning"]
+        R["Parallel Research<br/>Codebase + Reference researchers"]
+        CL{"Complexity<br/>Classification"}
+        R --> CL
+        CL -->|SIMPLE| S5
+        CL -->|MEDIUM / COMPLEX| PV
+        PV["Plan Validation<br/>Tech Lead checks scope & architecture"]
+        RA["Risk Analysis<br/>Tech Lead + Risk Testers"]
+        PV --> RA
+    end
 
-**Step 1 — Parallel Research**
+    subgraph Phase2["Phase 2: Execution"]
+        S5["Coding with Gold Standards<br/>Parallel coders implement"]
+        CC["Convention Checks<br/>naming, imports, schema"]
+        SR{"Specialized Review"}
+        AA["Architectural Approval<br/>Tech Lead sign-off"]
+        S5 --> CC --> SR --> AA
+        SR -.- U["SIMPLE: 1 Unified Reviewer"]
+        SR -.- SP["MEDIUM/COMPLEX: Security + Logic + Quality"]
+    end
 
-Two researchers run in parallel:
+    subgraph Phase3["Phase 3: Completion"]
+        IV["Integration Verification<br/>build + tests"]
+        CU["Conventions Update<br/>patterns & review findings"]
+        SM["Summary Report"]
+        IV --> CU --> SM
+    end
 
-- **Codebase Researcher** summarizes structure, stack, and conventions.
-- **Reference Researcher** finds strong example files that coders can follow.
-
-**Step 2 — Complexity Classification**
-
-The Lead classifies the task:
+    RA --> S5
+    AA --> IV
+```
 
 | Level | When | What changes |
 |-------|------|-------------|
 | **SIMPLE** | 1 layer, no behavior changes, <3 tasks | Lightweight team, single reviewer |
 | **MEDIUM** | 2+ layers, modifies existing code, 3+ tasks | Full team, specialized reviewers, risk analysis |
 | **COMPLEX** | 3+ layers, touches auth/payments, 5+ tasks | Full team + deep analysis and risk testing |
-
-**Step 3 — Plan Validation** *(MEDIUM and COMPLEX only)*
-
-Tech Lead verifies scope, dependencies, and architecture fit before coding starts.
-
-**Step 4 — Risk Analysis** *(MEDIUM and COMPLEX only)*
-
-Tech Lead identifies key risks early, and Risk Testers verify them with targeted checks.
-
-#### Phase 2: Execution
-
-A Supervisor monitors liveness, review loops, and escalations while coding is in progress.
-
-**Step 5 — Coding with Gold Standards**
-
-Coders implement tasks using project examples as gold standards.
-
-**Step 6 — Convention Checks**
-
-Lead runs quick checks (naming, imports, schema conventions) before human-like review.
-
-**Step 7 — Specialized Review**
-
-- **SIMPLE:** one Unified Reviewer.
-- **MEDIUM / COMPLEX:** Security, Logic, and Quality reviewers in parallel.
-- **COMPLEX:** deeper review scrutiny for sensitive areas.
-
-**Step 8 — Architectural Approval**
-
-Tech Lead gives final architecture sign-off before commit.
-
-#### Phase 3: Completion
-
-The team shuts down with a deterministic teardown protocol.
-
-**Step 9 — Integration Verification**
-
-Lead runs build and tests; failures become focused follow-up tasks.
-
-**Step 10 — Conventions Update**
-
-A dedicated final task updates `.conventions/` with new patterns and repeated review findings.
-
-**Step 11 — Summary Report**
-
-A final report includes completed tasks, review findings, risk outcomes, integration status, and convention updates.
 
 ---
 

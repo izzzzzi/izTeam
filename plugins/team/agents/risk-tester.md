@@ -13,15 +13,6 @@ description: |
   </example>
 
   <example>
-  Context: Lead spawns risk tester to verify data correctness risk for parallel cursors
-  lead: "Investigate RISK-3: Parallel cursors may lose or duplicate data. Download 2000 items sequentially as ground truth, then download same range with 2 and 4 parallel workers. Compare ID sets — they must be identical. Cursor logic is in src/parsers/poizon.py:520."
-  assistant: "I'll study the cursor logic, write a comparison test, run sequential vs parallel, and verify data integrity."
-  <commentary>
-  Risk tester creates a ground truth comparison — sequential result as baseline, parallel result must match exactly. This is how the dwSpuId vs id cursor bug was caught.
-  </commentary>
-  </example>
-
-  <example>
   Context: Lead spawns risk tester to verify that new API endpoints will be covered by auth middleware
   lead: "Investigate RISK-2: Auth middleware may not cover the new /api/v2/ routes. Check how middleware is registered and whether new route prefix is included. Files: src/middleware/auth.ts, src/routes/index.ts."
   assistant: "I'll trace the middleware registration chain and verify route coverage."
