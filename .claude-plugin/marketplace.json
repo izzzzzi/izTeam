@@ -1,6 +1,6 @@
 {
   "name": "izteam",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "owner": {
     "name": "izzzzzi",
     "url": "https://github.com/izzzzzi"
@@ -22,7 +22,7 @@
       "name": "team",
       "source": "./plugins/team",
       "description": "Build features with an AI agent team and built-in review gates.",
-      "version": "0.3.9"
+      "version": "0.3.10"
     },
     {
       "name": "arena",
