@@ -43,7 +43,9 @@ The Lead is a **Team Lead** orchestrating a feature implementation. The Lead coo
 - **String**: Feature description — the Lead decomposes it into tasks
 - **File path** (`.md`): Read the plan file and create tasks from it
 - **`--coders=N`**: Max parallel coders (default: 3)
-- **`--no-research`**: Skip all research. Use when context is already in the prompt or brief.
+- **`--no-research`**: Skip all research. Use when context is already in the prompt or brief. Also works when `.repo-map` + `.project-profile.yml` both exist (structural + semantic context available).
+- **`--fresh`**: Force regeneration of `.repo-map` even if it's fresh (< 24h, no new commits).
+- **`--git-checkpoints`**: Enable WIP checkpoint commits during coder workflow (see Git Mode below).
 
 ## Conventions System
 
@@ -74,6 +76,13 @@ The Lead is a **Team Lead** orchestrating a feature implementation. The Lead coo
 2. Quick Glob("*") — top-level layout
 3. Check .conventions/ → if exists, read gold-standards/*.* and tool-chains/commands.yml and decisions/*.md
 4. Check .project-profile.yml → if exists, read it (eliminates codebase-researcher)
+5. Generate .repo-map (symbol map):
+   a. Check if .repo-map exists and is fresh (< 24h, no new commits since generation)
+      - Fresh and no --fresh flag → skip, read existing .repo-map
+      - Stale or --fresh flag → regenerate
+   b. Run: python3 {plugin_dir}/skills/build/scripts/repo-map.py . [--fresh] [--budget=N]
+   c. If python3 unavailable → skip silently (researchers will scan manually)
+   d. Read .repo-map → top 50 lines go into briefing (Step 3)
 ```
 
 Do NOT read package.json, source files, or explore deeply.
@@ -82,9 +91,11 @@ Do NOT read package.json, source files, or explore deeply.
 
 Research is **adaptive** — skip what is known, research what is not.
 
+**`--no-research` extended rule:** If `.repo-map` exists AND `.project-profile.yml` exists → `--no-research` is implicitly true (structural map + semantic profile = sufficient context).
+
 ```mermaid
 flowchart TD
-    NR{"--no-research flag?"}
+    NR{"--no-research flag?<br/>OR (.repo-map + .project-profile.yml)?"}
     NR -->|YES| SKIP["SKIP ALL → Step 3"]
     NR -->|NO| CB{"Codebase context?<br/>.project-profile.yml or brief<br/>with stack + structure"}
     CB -->|YES| HAS_CB["has_codebase_context = true"]
@@ -266,6 +277,26 @@ flowchart TD
 | Need best practices | Dispatch general-purpose researcher with WebSearch |
 | CRITICAL risk requires arch change | Adjust tasks per Tech Lead recommendations |
 | Convention violations recurring | Note for Phase 3 conventions update |
+
+## Git Mode (`--git-checkpoints`)
+
+Lead records `git_mode` in `briefing.md`. Coders read it and act accordingly.
+
+| Mode | Flag | Behavior |
+|------|------|----------|
+| **standard** (default) | no flag | Single commit after all approvals: `feat: <subject> (task #N)` |
+| **checkpoint** | `--git-checkpoints` | WIP commits during workflow (see below) |
+
+**Checkpoint mode commit sequence:**
+1. **Pre-review:** `wip: task #N — pre-review checkpoint` (before sending REVIEW)
+2. **Review fixes:** `fix: task #N — review fixes` (after fixing feedback, before re-review)
+3. **Final:** `feat: <subject> (task #N)` (after all approvals)
+
+Lead writes to `briefing.md`:
+```
+## Git Mode
+git_mode: checkpoint
+```
 
 ## Key Rules
 

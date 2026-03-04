@@ -111,11 +111,21 @@ After fixing: minor/mechanical → commit. Significant changes → re-request fr
 
 ### Step 8: Commit and report
 
+**Read `git_mode` from briefing.md** (default: `standard`).
+
+**Standard mode** (`git_mode: standard`):
 1. Commit: `feat: <what was done> (task #{id})`
 2. TaskUpdate status=completed
 3. Check TaskList for next unassigned task
 4. Found → claim and `DONE: task {id}, claiming task {next_id}` to supervisor
 5. None → `DONE: task {id}. ALL MY TASKS COMPLETE` to supervisor
+
+**Checkpoint mode** (`git_mode: checkpoint`):
+1. **Pre-review** (before Step 5): `wip: task #{id} — pre-review checkpoint`
+2. **After review fixes** (during Step 7, if changes made): `fix: task #{id} — review fixes`
+3. **Final** (after all approvals): `feat: <what was done> (task #{id})`
+4. TaskUpdate status=completed
+5. Check TaskList → claim or report ALL COMPLETE (same as standard)
 
 ## Communication Protocol
 

@@ -37,7 +37,7 @@ Restart Claude Code after enabling.
 ## Usage
 
 ```
-/build <description or path/to/plan.md> [--coders=N]
+/build <description or path/to/plan.md> [--coders=N] [--fresh] [--git-checkpoints]
 /brief <description> — interview first, then build
 /conventions [path/to/project]
 ```
@@ -46,6 +46,7 @@ Restart Claude Code after enabling.
 ```
 /build "Add user settings page with profile editing"
 /build docs/plan.md --coders=2
+/build "Add notifications" --git-checkpoints
 /brief "Add notifications"
 /conventions
 ```
@@ -55,6 +56,8 @@ Restart Claude Code after enabling.
 ### /build
 
 A Team Lead orchestrates the full implementation flow. The pipeline scales with task complexity, so simple work stays fast and complex work gets more review.
+
+**Repo Map** — before dispatching researchers, `/build` generates a ranked symbol map of the codebase (`.repo-map`). This gives the team instant structural context: which files exist, what they export, and which are most-imported. Researchers skip structural discovery and focus on semantics, coders get a codebase overview in the briefing. Inspired by [Aider](https://github.com/Aider-AI/aider)'s repo map approach.
 
 ```mermaid
 flowchart TD
@@ -140,6 +143,8 @@ team/
 ├── skills/
 │   ├── build/
 │   │   ├── SKILL.md
+│   │   ├── scripts/
+│   │   │   └── repo-map.py
 │   │   └── references/
 │   │       ├── complexity-classification.md
 │   │       ├── risk-analysis-protocol.md

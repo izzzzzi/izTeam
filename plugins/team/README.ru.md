@@ -37,7 +37,7 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ## Использование
 
 ```
-/build <описание или путь/к/плану.md> [--coders=N]
+/build <описание или путь/к/плану.md> [--coders=N] [--fresh] [--git-checkpoints]
 /brief <описание> — сначала интервью, потом сборка
 /conventions [путь/к/проекту]
 ```
@@ -46,6 +46,7 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ```
 /build "Добавить страницу настроек пользователя с редактированием профиля"
 /build docs/plan.md --coders=2
+/build "Добавить уведомления" --git-checkpoints
 /brief "Добавить уведомления"
 /conventions
 ```
@@ -55,6 +56,8 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ### /build
 
 Team Lead оркестрирует полный поток реализации. Пайплайн масштабируется по сложности задачи: простые задачи проходят быстрее, сложные получают больше проверок.
+
+**Repo Map** — перед запуском researchers `/build` генерирует ранжированную карту символов кодовой базы (`.repo-map`). Это даёт команде мгновенный структурный контекст: какие файлы есть, что они экспортируют, какие чаще импортируются. Researchers пропускают discovery структуры и фокусируются на семантике, кодеры получают обзор кодовой базы прямо в briefing. Вдохновлено подходом repo map из [Aider](https://github.com/Aider-AI/aider).
 
 ```mermaid
 flowchart TD
@@ -140,6 +143,8 @@ team/
 ├── skills/
 │   ├── build/
 │   │   ├── SKILL.md
+│   │   ├── scripts/
+│   │   │   └── repo-map.py
 │   │   └── references/
 │   │       ├── complexity-classification.md
 │   │       ├── risk-analysis-protocol.md

@@ -143,6 +143,7 @@ Build features with an AI agent team and built-in review gates.
 ```bash
 /build "Add user settings page"
 /build docs/plan.md --coders=2
+/build "Add notifications" --git-checkpoints
 /brief "Notifications system"
 /conventions
 ```
@@ -155,6 +156,8 @@ Build features with an AI agent team and built-in review gates.
 "Interview me before we start building"
 "Extract project conventions and document standards"
 ```
+
+Repo Map feature inspired by [Aider](https://github.com/Aider-AI/aider) — generates a ranked symbol map to give agents instant codebase context.
 
 [Read more (EN) →](./plugins/team/README.md) · [RU →](./plugins/team/README.ru.md)
 

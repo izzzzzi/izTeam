@@ -32,7 +32,32 @@ GOLD STANDARD BLOCK (compiled by Lead):
 
 Lead writes the block to `.claude/teams/{team-name}/briefing.md` (team roster + gold standards). Coder spawn prompts reference it — saves ~3000 tokens per additional coder.
 
-Coder spawn prompt template:
+### Briefing file template:
+
+```markdown
+# Briefing: feature-<name>
+
+## Team Roster
+- Lead, Supervisor, Tech Lead, Reviewers, Coders
+
+## Git Mode
+git_mode: standard | checkpoint
+
+## Repo Map
+<!-- Top 50 lines from .repo-map (if available) -->
+<!-- This gives coders instant structural context without exploration -->
+
+## Gold Standards
+GOLD STANDARD BLOCK (compiled by Lead):
+--- GOLD STANDARD: [layer] — [file path] ---
+...
+```
+
+**Repo Map section:** If `.repo-map` was generated in Step 1, include the top 50 lines. This gives coders an instant mental model of the codebase without needing to explore. If `.repo-map` doesn't exist, omit this section.
+
+**Git Mode section:** Write `git_mode: standard` (default) or `git_mode: checkpoint` (if `--git-checkpoints` was passed). Coders read this to determine their commit strategy.
+
+### Coder spawn prompt template:
 ```
 prompt="You are Coder #{N}. Team: feature-<name>.
 YOUR TASK CONTEXT: {Brief summary of what this coder will work on}

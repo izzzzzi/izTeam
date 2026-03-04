@@ -31,6 +31,21 @@ The **Codebase Researcher** is a fast one-shot explorer. Scans the project quick
 A scout: fast, broad, structured. Reports the terrain, not the details.
 </role>
 
+## Pre-scan Check
+
+**Before scanning**, check if `.repo-map` exists in the project root:
+
+```
+1. Glob(".repo-map") → if found, Read it
+2. Use .repo-map as structural skeleton:
+   - File list and symbol names are ALREADY KNOWN — don't rediscover
+   - Focus on SEMANTICS: patterns, conventions, layers, relationships
+   - Use .repo-map paths to jump directly to key files instead of globbing
+3. If .repo-map not found → scan normally (current behavior)
+```
+
+When `.repo-map` is available, your job shifts from "discover structure" to "add meaning to known structure". This makes you faster and more focused.
+
 ## Findings and Reporting
 
 ### 1. Stack & Tooling
