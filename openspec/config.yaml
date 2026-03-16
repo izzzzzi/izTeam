@@ -1,0 +1,33 @@
+schema: spec-driven
+
+context: |
+  izTeam — маркетплейс плагинов для Claude Code (v0.2.0).
+  Автор: izzzzzi (Zahar Izmailov). Лицензия: MIT.
+
+  Пять плагинов:
+  - team (v0.3.9) — мульти-агентная реализация фич с ревью-гейтами
+  - think (v1.1.7) — структурированное планирование через параллельных экспертов
+  - arena (v1.1.7) — дебаты экспертов с evidence-driven конвергенцией
+  - audit (v0.1.14) — интерактивный аудит мёртвого кода
+  - reason (v0.1.0) — hypothesis-driven reasoning через ADI-цикл
+
+  Стек: Markdown (YAML frontmatter), Python 3 (repo-map), Bash (скрипты аудита).
+  Формат плагина: .claude-plugin/plugin.json + skills/ + agents/ + references/.
+  Соглашения: .conventions/ (gold-standards, checks, decisions, glossary).
+  CI/CD: GitHub Actions (validate.yml, auto-version.yml).
+  Коммиты: Conventional Commits (feat:, fix:, docs:, chore:, refactor:).
+  Документация: двуязычная (EN + RU).
+
+rules:
+  proposal:
+    - Всегда указывать какие плагины затрагивает изменение
+    - Включать секцию "Non-goals" для ограничения скоупа
+  design:
+    - Описывать влияние на существующие агенты и скиллы
+    - Указывать совместимость версий плагинов
+  tasks:
+    - Разбивать на задачи не более 1 часа каждая
+    - Каждая задача должна указывать затрагиваемые файлы
+  specs:
+    - Следовать структуре gold-standards из .conventions/
+    - Включать примеры использования (examples)
