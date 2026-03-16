@@ -1,6 +1,6 @@
 {
   "name": "izteam",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "owner": {
     "name": "izzzzzi",
     "url": "https://github.com/izzzzzi"
@@ -28,7 +28,7 @@
       "name": "arena",
       "source": "./plugins/arena",
       "description": "Compare expert viewpoints and converge on a clear decision.",
-      "version": "1.1.7"
+      "version": "1.1.8"
     },
     {
       "name": "reason",
