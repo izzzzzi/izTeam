@@ -1,0 +1,20 @@
+{
+  "name": "reason",
+  "version": "0.1.0",
+  "description": "Hypothesis-driven reasoning with auditable evidence trails (FPF/ADI cycle).",
+  "author": {
+    "name": "izzzzzi",
+    "url": "https://github.com/izzzzzi"
+  },
+  "repository": "https://github.com/izzzzzi/izTeam",
+  "license": "MIT",
+  "keywords": [
+    "reasoning",
+    "hypothesis",
+    "evidence",
+    "first-principles",
+    "fpf",
+    "decision-record",
+    "audit-trail"
+  ]
+}

@@ -29,6 +29,12 @@
       "source": "./plugins/arena",
       "description": "Compare expert viewpoints and converge on a clear decision.",
       "version": "1.1.7"
+    },
+    {
+      "name": "reason",
+      "source": "./plugins/reason",
+      "description": "Hypothesis-driven reasoning with auditable evidence trails (FPF/ADI cycle).",
+      "version": "0.1.0"
     }
   ]
 }

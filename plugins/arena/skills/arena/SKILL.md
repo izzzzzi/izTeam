@@ -141,10 +141,15 @@ Task(
 - **[slug-2]** — [Name 2] ([angle]): [expected position]
 ...
 
+## Evidence Rules
+- Every argument MUST cite evidence with R (reliability) and CL (congruence) ratings
+- You can challenge other experts' R/CL ratings with justification
+- Your final position MUST include an evidence summary table with WLNK trust score
+
 ## Begin!
-1. Broadcast your position to ALL participants
-2. Then argue directly with those you disagree with
-3. When you believe common ground has been reached — notify team-lead"
+1. Broadcast your position to ALL participants — with evidence and R/CL ratings
+2. Then argue directly with those you disagree with — challenge their evidence
+3. When you believe common ground has been reached — notify team-lead with evidence summary"
 )
 ```
 
@@ -157,11 +162,11 @@ Task(
 ### What happens automatically:
 
 Experts on their own:
-1. **Broadcast** initial positions
-2. **Challenge** specific experts via direct messages
-3. **Respond** to received challenges
-4. **Shift positions** when persuaded
-5. **Signal** convergence (send final position to team-lead)
+1. **Broadcast** initial positions with evidence (R/CL ratings)
+2. **Challenge** specific experts — their arguments AND their evidence ratings
+3. **Respond** to received challenges — defend or adjust evidence scores
+4. **Shift positions** when persuaded by stronger evidence
+5. **Signal** convergence (send final position + evidence summary table to team-lead)
 
 ### What the Moderator sees:
 
@@ -234,13 +239,23 @@ flowchart TD
 
 When the debates are concluded:
 
-### Step 1: Create the Final Document
+### Step 1: Consolidate Evidence
+
+Before creating the document:
+1. Collect all evidence tables from experts' final positions
+2. De-duplicate evidence cited by multiple experts
+3. Resolve contested R/CL ratings (use the better-justified rating)
+4. Calculate WLNK trust per position: `Trust = min(evidence_scores)`
+5. Assign assurance levels: L2 (Trust >= 0.7), L1 (0.4-0.7), L0 (< 0.4)
+
+### Step 2: Create the Final Document
 
 Compile the synthesis document using the template from `references/synthesis-template.md`.
+The template includes Trust Summary, Evidence Catalog, and contested evidence resolution.
 
 Save the document to `docs/arena/YYYY-MM-DD-[topic-brief].md`
 
-### Step 2: Shut Down the Team
+### Step 3: Shut Down the Team
 
 ```
 SendMessage(type="shutdown_request", recipient="<slug-1>", content="Arena concluded!")
@@ -250,7 +265,9 @@ SendMessage(type="shutdown_request", recipient="<slug-2>", content="Arena conclu
 
 Wait for confirmations, then: `TeamDelete()`
 
-### Step 3: Report the Result
+### Step 4: Report the Result
 
 > "Arena concluded. Results saved to `docs/arena/...`.
-> Would you like to dive deeper into any aspect, or shall we move to action?"
+> Winner: **[position]** (L[level], trust: [score]).
+> Would you like to dive deeper into any aspect, or shall we move to action?
+> Note: experts recommend — the human makes the final call."
