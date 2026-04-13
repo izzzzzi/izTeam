@@ -8,7 +8,7 @@
 
 [![Validate](https://github.com/izzzzzi/izTeam/actions/workflows/validate.yml/badge.svg)](https://github.com/izzzzzi/izTeam/actions/workflows/validate.yml)
 [![Auto Version](https://github.com/izzzzzi/izTeam/actions/workflows/auto-version.yml/badge.svg)](https://github.com/izzzzzi/izTeam/actions/workflows/auto-version.yml)
-[![Plugins](https://img.shields.io/badge/Plugins-4-blue?style=flat&colorA=18181B&colorB=28CF8D)](https://github.com/izzzzzi/izTeam)
+[![Plugins](https://img.shields.io/badge/Plugins-5-blue?style=flat&colorA=18181B&colorB=28CF8D)](https://github.com/izzzzzi/izTeam)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat&colorA=18181B&colorB=28CF8D)](LICENSE)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&colorA=18181B&colorB=28CF8D)](CONTRIBUTING.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-purple?style=flat&colorA=18181B&colorB=7C3AED)](https://claude.ai/code)
@@ -70,10 +70,19 @@ graph TD
         G1 --> G2 --> G3
     end
 
+    subgraph "/reason &mdash; Reason"
+        R1["🔬 Генерация конкурирующих гипотез"]
+        R2["🔍 Логическая верификация"]
+        R3["📊 Сбор эмпирических доказательств"]
+        R4["📋 Design Rationale Record"]
+        R1 --> R2 --> R3 --> R4
+    end
+
     C --> D1
     C --> E1
     C --> F1
     C --> G1
+    C --> R1
 ```
 
 **Примеры использования:**
@@ -102,6 +111,7 @@ graph TD
 | 🧠 **[think](#-think)** | `1.1.7` | Планируйте сложные задачи до кодинга через структурированный экспертный анализ. | `/think` |
 | 🎭 **[arena](#-arena)** | `1.1.7` | Сравнивайте экспертные точки зрения и приходите к чёткому решению. | `/arena` |
 | 🧹 **[audit](#-audit)** | `0.1.10` | Находите мёртвый и устаревший код через интерактивный аудит. | `/audit` |
+| 🧪 **[reason](#-reason)** | `0.1.0` | Рассуждения на основе гипотез с аудируемыми цепочками доказательств (FPF/ADI цикл). | `/reason` |
 
 ---
 
@@ -120,6 +130,7 @@ graph TD
 /plugin install think@izteam
 /plugin install arena@izteam
 /plugin install audit@izteam
+/plugin install reason@izteam
 ```
 
 ### 3. Перезапустите Claude Code
@@ -253,6 +264,36 @@ graph TD
 
 ---
 
+## 🧪 reason
+
+Рассуждения на основе гипотез с аудируемыми цепочками доказательств, основано на [First Principles Framework](https://github.com/ailev/FPF).
+
+> **Требуется:** `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` в `settings.json`
+
+```bash
+/plugin install reason@izteam
+```
+
+**Команды:**
+
+```bash
+/reason Какую базу данных выбрать для нового сервиса?
+/reason Монолит или микросервисы для нашего кейса?
+/reason Скорость или корректность в data pipeline?
+```
+
+**Естественный язык — тоже работает:**
+
+```
+"Проанализируй выбор базы данных с доказательствами"
+"Сравни варианты стратегии авторизации с trust-скорами"
+"Мне нужен decision record по подходу к кешированию"
+```
+
+[Подробнее (RU) →](./plugins/reason/README.ru.md) · [EN →](./plugins/reason/README.md)
+
+---
+
 ## 📁 Структура проекта
 
 ```text
@@ -263,7 +304,8 @@ izteam/
 │   ├── team/
 │   ├── think/
 │   ├── arena/
-│   └── audit/
+│   ├── audit/
+│   └── reason/
 ├── scripts/
 │   └── bump-version.sh
 ├── .github/workflows/
