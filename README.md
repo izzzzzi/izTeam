@@ -8,7 +8,7 @@
 
 [![Validate](https://github.com/izzzzzi/izTeam/actions/workflows/validate.yml/badge.svg)](https://github.com/izzzzzi/izTeam/actions/workflows/validate.yml)
 [![Auto Version](https://github.com/izzzzzi/izTeam/actions/workflows/auto-version.yml/badge.svg)](https://github.com/izzzzzi/izTeam/actions/workflows/auto-version.yml)
-[![Plugins](https://img.shields.io/badge/Plugins-4-blue?style=flat&colorA=18181B&colorB=28CF8D)](https://github.com/izzzzzi/izTeam)
+[![Plugins](https://img.shields.io/badge/Plugins-5-blue?style=flat&colorA=18181B&colorB=28CF8D)](https://github.com/izzzzzi/izTeam)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat&colorA=18181B&colorB=28CF8D)](LICENSE)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&colorA=18181B&colorB=28CF8D)](CONTRIBUTING.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-purple?style=flat&colorA=18181B&colorB=7C3AED)](https://claude.ai/code)
@@ -70,10 +70,19 @@ graph TD
         G1 --> G2 --> G3
     end
 
+    subgraph "/reason &mdash; Reason"
+        R1["🔬 Hypothesize competing options"]
+        R2["🔍 Verify logic &amp; constraints"]
+        R3["📊 Gather empirical evidence"]
+        R4["📋 Design Rationale Record"]
+        R1 --> R2 --> R3 --> R4
+    end
+
     C --> D1
     C --> E1
     C --> F1
     C --> G1
+    C --> R1
 ```
 
 **Example workflows:**
@@ -102,6 +111,7 @@ graph TD
 | 🧠 **[think](#-think)** | `1.1.7` | Plan complex tasks before coding with structured expert analysis. | `/think` |
 | 🎭 **[arena](#-arena)** | `1.1.7` | Compare expert viewpoints and converge on a clear decision. | `/arena` |
 | 🧹 **[audit](#-audit)** | `0.1.10` | Find dead and outdated code with an interactive audit. | `/audit` |
+| 🧪 **[reason](#-reason)** | `0.1.0` | Hypothesis-driven reasoning with auditable evidence trails (FPF/ADI cycle). | `/reason` |
 
 ---
 
@@ -120,6 +130,7 @@ graph TD
 /plugin install think@izteam
 /plugin install arena@izteam
 /plugin install audit@izteam
+/plugin install reason@izteam
 ```
 
 ### 3. Restart Claude Code
@@ -256,6 +267,36 @@ Find dead and outdated code with an interactive audit.
 
 ---
 
+## 🧪 reason
+
+Hypothesis-driven reasoning with auditable evidence trails, based on the [First Principles Framework](https://github.com/ailev/FPF).
+
+> **Required:** `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in `settings.json`
+
+```bash
+/plugin install reason@izteam
+```
+
+**Commands:**
+
+```bash
+/reason Which database for the new service?
+/reason Monolith or microservices for our case?
+/reason Speed vs correctness in the data pipeline?
+```
+
+**Natural language — also works:**
+
+```
+"Reason through the database choice with evidence"
+"Compare options for auth strategy with trust scores"
+"I need a decision record for the caching approach"
+```
+
+[Read more (EN) →](./plugins/reason/README.md) · [RU →](./plugins/reason/README.ru.md)
+
+---
+
 ## 📁 Project Structure
 
 ```text
@@ -266,7 +307,8 @@ izteam/
 │   ├── team/
 │   ├── think/
 │   ├── arena/
-│   └── audit/
+│   ├── audit/
+│   └── reason/
 ├── scripts/
 │   └── bump-version.sh
 ├── .github/workflows/
