@@ -28,7 +28,7 @@ jobs:
         id: version
         run: |
           MARKETPLACE_JSON=".claude-plugin/marketplace.json"
-          PLUGINS=("team" "think" "arena" "audit")
+          PLUGINS=("team" "think" "arena" "audit" "reason")
           CHANGED_PLUGINS=""
           GLOBAL_BUMP="patch"
 
@@ -108,10 +108,10 @@ jobs:
         if: steps.version.outputs.bumped == 'true'
         run: |
           git add .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json
-          git commit -m "$(cat <<EOF
-          chore: bump to v${{ steps.version.outputs.version }} [auto-version]
-          EOF
-          )"
+          git commit -m "$(cat <<'EOF'
+chore: bump to v${{ steps.version.outputs.version }} [auto-version]
+EOF
+)"
 
           git tag "v${{ steps.version.outputs.version }}"
           git push origin main --tags
