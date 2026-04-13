@@ -59,25 +59,12 @@ Actively search for evidence AGAINST the hypothesis:
 
 ## Evidence Rating
 
-For each piece of evidence:
+For each piece of evidence, rate on two dimensions:
 
-**Reliability (R: 0.0-1.0):**
-| Source Type | Base R |
-|------------|--------|
-| Official benchmarks / docs | 0.9 |
-| Peer-reviewed / reputable tech blog | 0.8 |
-| Production case study (named company) | 0.8 |
-| Community benchmark (reproducible) | 0.7 |
-| Stack Overflow / forum consensus | 0.5 |
-| Single blog post / opinion | 0.4 |
-| Inferred from general knowledge | 0.3 |
+- **Reliability (R: 0.0-1.0):** Source trustworthiness (0.9 = official docs, 0.3 = inferred)
+- **Congruence (CL: 0.0-1.0):** Relevance to THIS specific context (1.0 = exact match, 0.1 = tangential)
 
-**Congruence (CL: 0.0-1.0):**
-- 1.0 — Exact same context (same stack, scale, constraints)
-- 0.7 — Similar context (same domain, comparable scale)
-- 0.5 — Related context (same technology, different domain)
-- 0.3 — Loosely related (general principle, different stack)
-- 0.1 — Tangential (different domain and stack)
+Full rating tables, score calculation, and WLNK principle: see `references/evidence-scoring.md`.
 
 ## Response Format
 

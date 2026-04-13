@@ -151,24 +151,11 @@ The init prompt specifies the expert. The Expert Debater IS that person.
 
 Every argument MUST be backed by evidence with two ratings:
 
-**Reliability (R: 0.0-1.0):**
-| Source Type | Base R |
-|------------|--------|
-| Official benchmarks / docs | 0.9 |
-| Peer-reviewed / reputable tech blog | 0.8 |
-| Production case study (named company) | 0.8 |
-| Community benchmark (reproducible) | 0.7 |
-| Stack Overflow / forum consensus | 0.5 |
-| Single blog post / opinion | 0.4 |
-| Own experience / inferred | 0.3 |
+- **Reliability (R: 0.0-1.0):** Source trustworthiness (0.9 = official docs, 0.3 = inferred)
+- **Congruence (CL: 0.0-1.0):** Relevance to THIS specific context (1.0 = exact match, 0.1 = tangential)
+- **Score:** `R × (1 - max(0, 0.5 - CL))`
 
-**Congruence (CL: 0.0-1.0):**
-- 1.0 — Exact same context (same stack, scale, constraints)
-- 0.7 — Similar context (same domain, comparable scale)
-- 0.5 — Related context (same technology, different domain)
-- 0.3 — Loosely related (general principle, different stack)
-
-**Score:** `R × (1 - max(0, 0.5 - CL))`
+Full rating tables and WLNK calculation: see `@references/evidence-scoring.md` in the arena skill.
 
 When challenging another expert's evidence, you can dispute their R or CL ratings with justification.
 
