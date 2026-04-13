@@ -7,6 +7,8 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SOURCE="$ROOT/shared/mcp-servers.json"
+# Plugins that use MCP tools in their skills/agents.
+# reason is intentionally excluded — it does not use MCP tools (no WebSearch/context7 in allowed-tools).
 PLUGINS_WITH_MCP=(team arena think)
 CHECK_MODE=false
 VERBOSE=false
