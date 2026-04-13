@@ -1,6 +1,6 @@
 {
   "name": "reason",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hypothesis-driven reasoning with auditable evidence trails (FPF/ADI cycle).",
   "author": {
     "name": "izzzzzi",

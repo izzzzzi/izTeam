@@ -1,6 +1,6 @@
 {
   "name": "izteam",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "owner": {
     "name": "izzzzzi",
     "url": "https://github.com/izzzzzi"
@@ -28,13 +28,13 @@
       "name": "arena",
       "source": "./plugins/arena",
       "description": "Compare expert viewpoints and converge on a clear decision.",
-      "version": "1.1.8"
+      "version": "1.1.9"
     },
     {
       "name": "reason",
       "source": "./plugins/reason",
       "description": "Hypothesis-driven reasoning with auditable evidence trails (FPF/ADI cycle).",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }
